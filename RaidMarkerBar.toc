@@ -1,0 +1,12 @@
+## Interface: 120100
+## Title: RaidMarkerBar
+## Notes: A standalone raid marker bar. Eight markers plus clear, ready check and pull countdown.
+## Author: JoesphG
+## Version: 1.1.0
+## SavedVariables: RaidMarkerBarDB
+## AllowLoadGameType: mainline
+## X-License: MIT
+## IconTexture: Interface\TargetingFrame\UI-RaidTargetingIcon_8
+
+Core.lua
+Options.lua
