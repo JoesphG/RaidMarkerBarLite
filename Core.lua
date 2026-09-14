@@ -573,16 +573,34 @@ SlashCmdList.RAIDMARKERBAR = function(input)
         Print("status")
         Print("  bar built:", bar and "yes" or "|cffff5555NO|r")
         if bar then
-            Print("  shown:", bar:IsShown() and "yes" or "|cffff5555NO|r",
-                "  alpha:", bar:GetAlpha(),
-                "  size:", math.floor(bar:GetWidth() or 0) .. "x" .. math.floor(bar:GetHeight() or 0))
+            Print(
+                "  shown:",
+                bar:IsShown() and "yes" or "|cffff5555NO|r",
+                "  alpha:",
+                bar:GetAlpha(),
+                "  size:",
+                math.floor(bar:GetWidth() or 0) .. "x" .. math.floor(bar:GetHeight() or 0)
+            )
             local p1, _, p3, x, y = bar:GetPoint()
-            Print("  anchored:", tostring(p1), tostring(p3), tostring(x), tostring(y),
-                "  strata:", bar:GetFrameStrata())
+            Print(
+                "  anchored:",
+                tostring(p1),
+                tostring(p3),
+                tostring(x),
+                tostring(y),
+                "  strata:",
+                bar:GetFrameStrata()
+            )
         end
         Print("  show mode:", db.show, " locked:", tostring(db.locked))
-        Print("  in group:", tostring(IsInGroup()), " in raid:", tostring(IsInRaid()),
-            " can mark:", tostring(CanMark()))
+        Print(
+            "  in group:",
+            tostring(IsInGroup()),
+            " in raid:",
+            tostring(IsInRaid()),
+            " can mark:",
+            tostring(CanMark())
+        )
         Print("  if shown=no while grouped, run: /rmb show always")
         return
     elseif cmd == "reset" then

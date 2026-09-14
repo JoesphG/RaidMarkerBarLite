@@ -80,7 +80,12 @@ function ns.SetupOptions(savedVariables)
     Checkbox(category, "vertical", "Vertical", "Stack the buttons in a column instead of a row.")
     Checkbox(category, "extras", "Ready check and pull timer", "Show the two buttons after the markers.")
     Checkbox(category, "tooltips", "Tooltips", "Show a tooltip on hover.")
-    Checkbox(category, "locked", "Locked", "Hide the drag handle. Unlocking forces the bar on screen so there is something to drag while solo.")
+    Checkbox(
+        category,
+        "locked",
+        "Locked",
+        "Hide the drag handle. Unlocking forces the bar on screen so there is something to drag while solo."
+    )
     Dropdown(category, "show", "Show the bar", {
         { "always", "Always" },
         { "group", "In a group" },
@@ -99,10 +104,26 @@ function ns.SetupOptions(savedVariables)
     }, "Held to place the other kind of marker.")
 
     Header(layout, "Pull timer")
-    Slider(category, "countdown", "Countdown", 3, 60, 1, "Seconds the pull timer button starts. Right click the button cancels a running one.", "s")
+    Slider(
+        category,
+        "countdown",
+        "Countdown",
+        3,
+        60,
+        1,
+        "Seconds the pull timer button starts. Right click the button cancels a running one.",
+        "s"
+    )
 
-    layout:AddInitializer(CreateSettingsButtonInitializer("", RESET or "Reset", Reset,
-        "Restore every setting, including the bar position, to its default.", true))
+    layout:AddInitializer(
+        CreateSettingsButtonInitializer(
+            "",
+            RESET or "Reset",
+            Reset,
+            "Restore every setting, including the bar position, to its default.",
+            true
+        )
+    )
 
     Settings.RegisterAddOnCategory(category)
     ns.optionsCategory = category
