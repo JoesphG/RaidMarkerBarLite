@@ -4,9 +4,11 @@
 ## Author: JoesphG
 ## Version: 1.1.0
 ## SavedVariables: RaidMarkerBarDB
+## Category-enUS: Raid Frames
 ## AllowLoadGameType: mainline
-## X-License: MIT
 ## IconTexture: Interface\TargetingFrame\UI-RaidTargetingIcon_8
+## X-License: MIT
+## X-Website: https://github.com/JoesphG/RaidMarkerBar
 
 Core.lua
 Options.lua
