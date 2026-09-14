@@ -8,7 +8,7 @@
 -- Registered from PLAYER_LOGIN by Core, because a setting needs the table it
 -- reads and writes to exist first.
 
-local ADDON, ns = ...
+local _, ns = ...
 
 local Settings = Settings
 

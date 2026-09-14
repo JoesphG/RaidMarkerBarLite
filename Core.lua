@@ -25,7 +25,7 @@
 --   * RegisterStateDriver owns visibility, so the bar can appear and disappear
 --     mid-fight without Lua touching it.
 
-local ADDON, ns = ...
+local _, ns = ...
 
 local CreateFrame = CreateFrame
 local InCombatLockdown = InCombatLockdown
