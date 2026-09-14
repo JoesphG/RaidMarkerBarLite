@@ -1,0 +1,16 @@
+package-as: RaidMarkerBar
+
+# Release notes come from the hand-written changelog, not commit messages.
+manual-changelog: CHANGELOG.md
+
+ignore:
+  - .github
+  - .gitignore
+  - .luacheckrc
+  - .luarc.json
+  - .pkgmeta
+  - .styluaignore
+  - Makefile
+  - README.md
+  - stylua.toml
+  - tests
