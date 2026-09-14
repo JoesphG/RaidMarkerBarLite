@@ -49,9 +49,12 @@ solo forces the bar on screen so there is something to drag.
 
 ## Support
 
-Bugs and ideas go to the
-[issue tracker on GitHub](https://github.com/JoesphG/RaidMarkerBarLite/issues).
-`/rmb status` prints where the bar is and why it is or is not showing, which
-is usually the whole diagnosis.
+Bugs, questions and ideas all go to Discord: **[discord.gg/zHT3bGEQ52](https://discord.gg/zHT3bGEQ52)**
+
+`#support` for bugs and help, `#ideas` for feature requests, `#announcements`
+for release notes. The
+[GitHub issue tracker](https://github.com/JoesphG/RaidMarkerBarLite/issues)
+works too. `/rmb status` prints where the bar is and why it is or is not
+showing, which is usually the whole diagnosis.
 
 Source: [github.com/JoesphG/RaidMarkerBarLite](https://github.com/JoesphG/RaidMarkerBarLite) — MIT licensed.
