@@ -12,5 +12,6 @@ ignore:
   - .styluaignore
   - Makefile
   - README.md
+  - images
   - stylua.toml
   - tests

@@ -6,7 +6,7 @@
 ## SavedVariables: RaidMarkerBarDB
 ## Category-enUS: Raid Frames
 ## AllowLoadGameType: mainline
-## IconTexture: Interface\TargetingFrame\UI-RaidTargetingIcon_8
+## IconTexture: Interface\AddOns\RaidMarkerBar\icon.tga
 ## X-License: MIT
 ## X-Website: https://github.com/JoesphG/RaidMarkerBar
 
