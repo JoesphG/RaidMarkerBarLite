@@ -1,103 +1,100 @@
 """Renders icon.tga and the CurseForge avatar. Needs Pillow.
 
-Three markers on an iron plate: star, circle, diamond. Picked to hold three
-distinct colour blobs at the 20-24px the AddOns list renders at.
+The skull marker on an iron plate: the one marker every raider knows, and the
+only one of the eight that still reads at the 20px the AddOns list uses.
 """
 
 from PIL import Image, ImageDraw, ImageFilter
 import math
-
-BG_MID = (38, 42, 60)
-BG_DEEP = (8, 9, 14)
 IRON = (74, 74, 88)
-PLATE = (46, 48, 60)
-PLATE_HI = (92, 96, 116)
-PLATE_LO = (22, 23, 30)
-STAR = (255, 222, 48)
-CIRCLE = (255, 128, 32)
-DIAMOND = (176, 72, 232)
-
 
 def lerp(a, b, t):
     return tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3))
 
-
-def render(N, S=8, pad=0.47):
-    P = N * S
-    c = P / 2
-
-    def canvas():
-        return Image.new("RGBA", (P, P), (0, 0, 0, 0))
-
-    def glow(fn, blur, alpha):
-        g = canvas()
-        fn(ImageDraw.Draw(g))
+class Ctx:
+    def __init__(self, N, S=8, pad=0.47):
+        self.N, self.S, self.pad = N, S, pad
+        self.P = N * S
+        self.c = self.P / 2
+        self.img = self.canvas()
+    def canvas(self):
+        return Image.new("RGBA", (self.P, self.P), (0, 0, 0, 0))
+    def bg(self, mid, deep, power=0.8):
+        d = ImageDraw.Draw(self.img); c, P = self.c, self.P
+        for i in range(200, 0, -1):
+            t = i / 200; r = P * self.pad * t
+            d.ellipse([c - r, c - r, c + r, c + r], fill=lerp(mid, deep, t ** power) + (255,))
+    def glow(self, fn, blur, alpha):
+        g = self.canvas(); fn(ImageDraw.Draw(g))
         g = g.filter(ImageFilter.GaussianBlur(blur))
         g.putalpha(g.split()[3].point(lambda v: int(v * alpha)))
-        return g
-
-    def clip_circle(img, r):
+        self.img.alpha_composite(g)
+    def clip(self, img, r=None):
+        r = r or self.P * self.pad * 0.955; c, P = self.c, self.P
         m = Image.new("L", (P, P), 0)
         ImageDraw.Draw(m).ellipse([c - r, c - r, c + r, c + r], fill=255)
         img.putalpha(Image.composite(img.split()[3], Image.new("L", (P, P), 0), m))
         return img
+    def bezel(self, col=IRON):
+        d = ImageDraw.Draw(self.img); c, P, pad = self.c, self.P, self.pad
+        d.ellipse([c - P * pad, c - P * pad, c + P * pad, c + P * pad], outline=col + (255,), width=int(P * 0.034))
+        r = P * pad * 0.962
+        d.ellipse([c - r, c - r, c + r, c + r], outline=lerp(col, (0, 0, 0), 0.55) + (210,), width=int(P * 0.013))
+    def out(self):
+        return self.img.resize((self.N, self.N), Image.LANCZOS)
 
-    img = canvas()
-    d = ImageDraw.Draw(img)
-    for i in range(200, 0, -1):
-        t = i / 200
-        r = P * pad * t
-        d.ellipse([c - r, c - r, c + r, c + r], fill=lerp(BG_MID, BG_DEEP, t**0.8) + (255,))
+def skull(d, cx, cy, r, col, dark):
+    # cranium
+    d.ellipse([cx - r, cy - r * 1.05, cx + r, cy + r * 0.55], fill=col)
+    # jaw
+    d.rounded_rectangle([cx - r * 0.62, cy + r * 0.1, cx + r * 0.62, cy + r * 0.95], radius=r * 0.22, fill=col)
+    # cheek notches
+    d.polygon([(cx - r, cy + r * 0.25), (cx - r * 0.62, cy + r * 0.25), (cx - r * 0.62, cy + r * 0.7)], fill=dark)
+    d.polygon([(cx + r, cy + r * 0.25), (cx + r * 0.62, cy + r * 0.25), (cx + r * 0.62, cy + r * 0.7)], fill=dark)
+    # eyes
+    er = r * 0.3
+    for ex in (cx - r * 0.42, cx + r * 0.42):
+        d.ellipse([ex - er, cy - r * 0.35 - er * 0.9, ex + er, cy - r * 0.35 + er * 0.9], fill=dark)
+    # nose
+    d.polygon([(cx, cy + r * 0.05), (cx - r * 0.14, cy + r * 0.35), (cx + r * 0.14, cy + r * 0.35)], fill=dark)
+    # teeth lines
+    for tx in (-0.3, -0.1, 0.1, 0.3):
+        d.rectangle([cx + r * tx - r * 0.025, cy + r * 0.6, cx + r * tx + r * 0.025, cy + r * 0.95], fill=dark)
 
-    # plate
-    ph = P * 0.40
-    x0, x1 = P * 0.06, P * 0.94
-    y0, y1 = c - ph / 2, c + ph / 2
-    sh = canvas()
-    ImageDraw.Draw(sh).rounded_rectangle([x0, y0 + P * 0.03, x1, y1 + P * 0.03], radius=ph * 0.22, fill=(0, 0, 0, 200))
-    img.alpha_composite(clip_circle(sh.filter(ImageFilter.GaussianBlur(P * 0.02)), P * pad * 0.955))
-    plate = canvas()
-    d = ImageDraw.Draw(plate)
-    d.rounded_rectangle([x0, y0, x1, y1], radius=ph * 0.22, fill=PLATE + (255,))
-    d.rounded_rectangle([x0, y0, x1, y0 + ph * 0.16], radius=ph * 0.18, fill=PLATE_HI + (255,))
-    d.rounded_rectangle([x0, y1 - ph * 0.14, x1, y1], radius=ph * 0.18, fill=PLATE_LO + (255,))
-    img.alpha_composite(clip_circle(plate, P * pad * 0.955))
+def skull(d, cx, cy, r, col, dark):
+    # cranium
+    d.ellipse([cx - r, cy - r * 1.05, cx + r, cy + r * 0.55], fill=col)
+    # jaw
+    d.rounded_rectangle([cx - r * 0.62, cy + r * 0.1, cx + r * 0.62, cy + r * 0.95], radius=r * 0.22, fill=col)
+    # cheek notches
+    d.polygon([(cx - r, cy + r * 0.25), (cx - r * 0.62, cy + r * 0.25), (cx - r * 0.62, cy + r * 0.7)], fill=dark)
+    d.polygon([(cx + r, cy + r * 0.25), (cx + r * 0.62, cy + r * 0.25), (cx + r * 0.62, cy + r * 0.7)], fill=dark)
+    # eyes
+    er = r * 0.3
+    for ex in (cx - r * 0.42, cx + r * 0.42):
+        d.ellipse([ex - er, cy - r * 0.35 - er * 0.9, ex + er, cy - r * 0.35 + er * 0.9], fill=dark)
+    # nose
+    d.polygon([(cx, cy + r * 0.05), (cx - r * 0.14, cy + r * 0.35), (cx + r * 0.14, cy + r * 0.35)], fill=dark)
+    # teeth lines
+    for tx in (-0.3, -0.1, 0.1, 0.3):
+        d.rectangle([cx + r * tx - r * 0.025, cy + r * 0.6, cx + r * tx + r * 0.025, cy + r * 0.95], fill=dark)
 
-    # markers
-    R = P * 0.125
-    xs = [c - P * 0.29, c, c + P * 0.29]
-
-    def star(d, cx, cy, r, fill):
-        pts = []
-        for i in range(10):
-            a = -math.pi / 2 + i * math.pi / 5
-            rr = r if i % 2 == 0 else r * 0.46
-            pts.append((cx + rr * math.cos(a), cy + rr * math.sin(a)))
-        d.polygon(pts, fill=fill)
-
-    def circle(d, cx, cy, r, fill):
-        d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=fill)
-
-    def diamond(d, cx, cy, r, fill):
-        d.polygon([(cx, cy - r * 1.1), (cx + r * 0.8, cy), (cx, cy + r * 1.1), (cx - r * 0.8, cy)], fill=fill)
-
-    shapes = [(star, STAR, R * 1.15), (circle, CIRCLE, R * 0.95), (diamond, DIAMOND, R * 1.05)]
-    for (fn, col, r), x in zip(shapes, xs):
-        img.alpha_composite(glow(lambda g, fn=fn, x=x, r=r, col=col: fn(g, x, c, r * 1.15, col + (255,)), P * 0.03, 0.85))
-    d = ImageDraw.Draw(img)
-    for (fn, col, r), x in zip(shapes, xs):
-        fn(d, x, c + P * 0.012, r, lerp(col, (0, 0, 0), 0.55) + (255,))
-        fn(d, x, c, r, col + (255,))
-        fn(d, x, c - r * 0.10, r * 0.62, lerp(col, (255, 255, 255), 0.35) + (255,))
-
-    # bezel
-    d.ellipse([c - P * pad, c - P * pad, c + P * pad, c + P * pad], outline=IRON + (255,), width=int(P * 0.034))
-    d.ellipse(
-        [c - P * pad * 0.962, c - P * pad * 0.962, c + P * pad * 0.962, c + P * pad * 0.962],
-        outline=lerp(IRON, (0, 0, 0), 0.55) + (210,),
-        width=int(P * 0.013),
-    )
-    return img.resize((N, N), Image.LANCZOS)
+def render(N, S=8):
+    x = Ctx(N, S)
+    c, P = x.c, x.P
+    x.bg((120, 22, 30), (14, 4, 6))
+    # plate under the skull
+    ph = P * 0.34
+    plate = x.canvas(); d = ImageDraw.Draw(plate)
+    d.rounded_rectangle([P * 0.05, c - ph / 2 + P * 0.06, P * 0.95, c + ph / 2 + P * 0.06], radius=ph * 0.2, fill=(30, 26, 32, 255))
+    d.rounded_rectangle([P * 0.05, c - ph / 2 + P * 0.06, P * 0.95, c - ph / 2 + P * 0.11], radius=ph * 0.15, fill=(90, 84, 96, 255))
+    x.img.alpha_composite(x.clip(plate))
+    R = P * 0.3
+    x.glow(lambda g: skull(g, c, c - P * 0.02, R * 1.05, (255, 240, 240, 255), (255, 240, 240, 255)), P * 0.04, 0.8)
+    d = ImageDraw.Draw(x.img)
+    skull(d, c, c + P * 0.01, R, (20, 10, 12, 255), (20, 10, 12, 255))  # shadow
+    skull(d, c, c - P * 0.02, R, (245, 240, 236, 255), (40, 12, 16, 255))
+    x.bezel(); return x.out()
 
 
 icon = render(128)
