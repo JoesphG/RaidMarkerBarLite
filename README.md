@@ -47,7 +47,7 @@ solo forces the bar on screen so there is something to drag.
 
 ## Installation
 
-Download from [CurseForge](https://www.curseforge.com/wow/addons/raidmarkerbarlite),
+Download from [CurseForge](https://www.curseforge.com/projects/1695756),
 or clone this repository into
 `World of Warcraft/_retail_/Interface/AddOns/RaidMarkerBarLite`. There is no build
 step and nothing to embed.
