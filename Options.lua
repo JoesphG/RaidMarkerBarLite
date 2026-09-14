@@ -1,4 +1,4 @@
--- RaidMarkerBar options panel.
+-- RaidMarkerBarLite options panel.
 --
 -- Blizzard's own Settings API, so the addon still carries no libraries. Every
 -- control writes straight into the saved-variable table and re-applies the bar,
@@ -72,7 +72,7 @@ function ns.SetupOptions(savedVariables)
 
     db = savedVariables
 
-    local category, layout = Settings.RegisterVerticalLayoutCategory("RaidMarkerBar")
+    local category, layout = Settings.RegisterVerticalLayoutCategory("RaidMarkerBarLite")
 
     Header(layout, "Layout")
     Slider(category, "size", "Button size", 12, 64, 1, "Width and height of each button.")

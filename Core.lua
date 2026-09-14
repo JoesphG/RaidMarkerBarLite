@@ -1,4 +1,4 @@
--- RaidMarkerBar
+-- RaidMarkerBarLite
 --
 -- A raid marker bar with no dependencies: no Ace3, no LibStub, no embedded
 -- libraries at all. One file, one saved-variable table, one event frame, no
@@ -39,7 +39,7 @@ local format = string.format
 -- Slash commands and the options panel are two faces of the same table: both
 -- write to db and call Apply, neither keeps state of its own.
 local SLASH_HELP = {
-    "|cff00ff00RaidMarkerBar|r",
+    "|cff00ff00RaidMarkerBarLite|r",
     "  /rmb config          open the options panel",
     "  /rmb lock            toggle the drag handle",
     "  /rmb size <12-64>    button size",
@@ -109,7 +109,7 @@ local buttons = {}
 local pending = false
 
 local function Print(...)
-    print("|cff00ff00RaidMarkerBar|r:", ...)
+    print("|cff00ff00RaidMarkerBarLite|r:", ...)
 end
 
 --------------------------------------------------------------------------------

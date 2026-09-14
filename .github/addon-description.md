@@ -5,7 +5,7 @@ is pasted by hand into the Description editor with the format set to Markdown.
 
 **Every raid marker one click away, in combat too.**
 
-RaidMarkerBar is a movable row of the eight target markers, a clear button, a
+RaidMarkerBarLite is a movable row of the eight target markers, a clear button, a
 ready check and a pull countdown. It carries no libraries and no dependencies,
 and the marker buttons are secure action buttons, so they keep working when the
 fight has started and a marker is what you actually need.
@@ -50,8 +50,8 @@ solo forces the bar on screen so there is something to drag.
 ## Support
 
 Bugs and ideas go to the
-[issue tracker on GitHub](https://github.com/JoesphG/RaidMarkerBar/issues).
+[issue tracker on GitHub](https://github.com/JoesphG/RaidMarkerBarLite/issues).
 `/rmb status` prints where the bar is and why it is or is not showing, which
 is usually the whole diagnosis.
 
-Source: [github.com/JoesphG/RaidMarkerBar](https://github.com/JoesphG/RaidMarkerBar) — MIT licensed.
+Source: [github.com/JoesphG/RaidMarkerBarLite](https://github.com/JoesphG/RaidMarkerBarLite) — MIT licensed.

@@ -64,8 +64,8 @@ jobs:
         if: steps.tagged.outputs.skip != 'true'
         run: |
           set -e
-          pkg=".release/RaidMarkerBar"
-          for f in RaidMarkerBar.toc icon.tga Core.lua Options.lua; do
+          pkg=".release/RaidMarkerBarLite"
+          for f in RaidMarkerBarLite.toc icon.tga Core.lua Options.lua; do
             test -f "$pkg/$f" || { echo "::error::missing $f in package"; exit 1; }
           done
           for f in .pkgmeta README.md images tests .github Makefile; do

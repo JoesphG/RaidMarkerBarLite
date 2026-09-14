@@ -1,4 +1,4 @@
-package-as: RaidMarkerBar
+package-as: RaidMarkerBarLite
 
 # Release notes come from the hand-written changelog, not commit messages.
 manual-changelog: CHANGELOG.md

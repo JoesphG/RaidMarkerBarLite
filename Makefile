@@ -16,6 +16,6 @@ test:
 
 # Build the CurseForge zip locally without uploading anything.
 package:
-	curl -sL https://raw.githubusercontent.com/BigWigsMods/packager/v2.5.1/release.sh -o /tmp/raidmarkerbar-release.sh
-	chmod +x /tmp/raidmarkerbar-release.sh
-	/tmp/raidmarkerbar-release.sh -d -t .
+	curl -sL https://raw.githubusercontent.com/BigWigsMods/packager/v2.5.1/release.sh -o /tmp/raidmarkerbarlite-release.sh
+	chmod +x /tmp/raidmarkerbarlite-release.sh
+	/tmp/raidmarkerbarlite-release.sh -d -t .

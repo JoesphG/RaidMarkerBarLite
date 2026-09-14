@@ -1,4 +1,4 @@
-# RaidMarkerBar
+# RaidMarkerBarLite
 
 A standalone raid marker bar for World of Warcraft: the eight target markers,
 a clear button, a ready check and a pull countdown in one movable row.
@@ -48,7 +48,7 @@ solo forces the bar on screen so there is something to drag.
 ## Installation
 
 Download from CurseForge, or clone this repository into
-`World of Warcraft/_retail_/Interface/AddOns/RaidMarkerBar`. There is no build
+`World of Warcraft/_retail_/Interface/AddOns/RaidMarkerBarLite`. There is no build
 step and nothing to embed.
 
 ## Development

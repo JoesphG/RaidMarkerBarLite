@@ -1,14 +1,15 @@
 ## Interface: 120100
-## Title: RaidMarkerBar
+## Title: RaidMarkerBarLite
 ## Notes: A standalone raid marker bar. Eight markers plus clear, ready check and pull countdown.
 ## Author: JoesphG
 ## Version: 1.1.0
 ## SavedVariables: RaidMarkerBarDB
+## X-Curse-Project-ID: 1695756
 ## Category-enUS: Raid Frames
 ## AllowLoadGameType: mainline
-## IconTexture: Interface\AddOns\RaidMarkerBar\icon.tga
+## IconTexture: Interface\AddOns\RaidMarkerBarLite\icon.tga
 ## X-License: MIT
-## X-Website: https://github.com/JoesphG/RaidMarkerBar
+## X-Website: https://github.com/JoesphG/RaidMarkerBarLite
 
 Core.lua
 Options.lua
